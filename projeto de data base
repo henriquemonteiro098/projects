@@ -1,1 +1,74 @@
+-- Esqueleto de base de dados (PostgreSQL)
+-- Ajuste os nomes e relacionamentos conforme o seu projeto.
 
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    senha_hash VARCHAR(255) NOT NULL,
+    papel VARCHAR(30) NOT NULL DEFAULT 'usuario',
+    criado_em TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE clientes (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(150) NOT NULL,
+    email VARCHAR(150),
+    telefone VARCHAR(30),
+    empresa VARCHAR(150),
+    criado_em TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE projetos (
+    id SERIAL PRIMARY KEY,
+    cliente_id INT REFERENCES clientes(id) ON DELETE SET NULL,
+    nome VARCHAR(150) NOT NULL,
+    descricao TEXT,
+    status VARCHAR(30) NOT NULL DEFAULT 'planejado',
+    data_inicio DATE,
+    data_fim DATE,
+    criado_em TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE tarefas (
+    id SERIAL PRIMARY KEY,
+    projeto_id INT NOT NULL REFERENCES projetos(id) ON DELETE CASCADE,
+    responsavel_id INT REFERENCES usuarios(id) ON DELETE SET NULL,
+    titulo VARCHAR(150) NOT NULL,
+    descricao TEXT,
+    prioridade VARCHAR(20) NOT NULL DEFAULT 'media',
+    status VARCHAR(30) NOT NULL DEFAULT 'pendente',
+    data_criacao TIMESTAMP NOT NULL DEFAULT NOW(),
+    data_entrega DATE
+);
+
+CREATE TABLE comentarios (
+    id SERIAL PRIMARY KEY,
+    tarefa_id INT NOT NULL REFERENCES tarefas(id) ON DELETE CASCADE,
+    usuario_id INT NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    mensagem TEXT NOT NULL,
+    criado_em TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE arquivos (
+    id SERIAL PRIMARY KEY,
+    projeto_id INT REFERENCES projetos(id) ON DELETE CASCADE,
+    tarefa_id INT REFERENCES tarefas(id) ON DELETE CASCADE,
+    nome_arquivo VARCHAR(255) NOT NULL,
+    caminho_arquivo VARCHAR(500) NOT NULL,
+    tipo_arquivo VARCHAR(100),
+    enviado_em TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX idx_projetos_cliente_id ON projetos(cliente_id);
+CREATE INDEX idx_tarefas_projeto_id ON tarefas(projeto_id);
+CREATE INDEX idx_tarefas_responsavel_id ON tarefas(responsavel_id);
+CREATE INDEX idx_comentarios_tarefa_id ON comentarios(tarefa_id);
+CREATE INDEX idx_arquivos_projeto_id ON arquivos(projeto_id);
+CREATE INDEX idx_arquivos_tarefa_id ON arquivos(tarefa_id);
+
+-- Exemplo de uso:
+-- INSERT INTO clientes (nome, email, empresa) VALUES ('Empresa A', 'contato@empresa.com', 'Empresa A');
+-- INSERT INTO projetos (cliente_id, nome, descricao, status) VALUES (1, 'Portal Web', 'Desenvolvimento do portal institucional', 'em_andamento');
+-- INSERT INTO usuarios (nome, email, senha_hash, papel) VALUES ('Ana', 'ana@email.com', 'hash_da_senha', 'admin');
+-- INSERT INTO tarefas (projeto_id, responsavel_id, titulo, descricao, prioridade, status) VALUES (1, 1, 'Criar layout', 'Definir a página inicial', 'alta', 'pendente');
