@@ -1,5 +1,5 @@
--- Banco de dados para sistema de viagens (viagens-db)
--- Modelo de estrutura inicial em PostgreSQL
+-- Database schema for travel system (travel-db)
+-- Initial relational structure in PostgreSQL
 
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
@@ -141,7 +141,7 @@ CREATE TABLE promocoes (
     ativo BOOLEAN NOT NULL DEFAULT TRUE
 );
 
--- Índices para consultas frequentes
+-- Indexes for frequent queries
 CREATE INDEX idx_clientes_usuario_id ON clientes(usuario_id);
 CREATE INDEX idx_hoteis_destino_id ON hoteis(destino_id);
 CREATE INDEX idx_acomodacoes_hotel_id ON acomodacoes(hotel_id);
@@ -153,7 +153,7 @@ CREATE INDEX idx_pagamentos_status ON pagamentos(status_pagamento);
 CREATE INDEX idx_avaliacoes_cliente_id ON avaliacoes(cliente_id);
 CREATE INDEX idx_promocoes_pacote_id ON promocoes(pacote_id);
 
--- Exemplos de consultas básicas
+-- Sample basic queries
 -- SELECT * FROM destinos WHERE ativo = TRUE;
 -- SELECT * FROM pacotes WHERE data_inicio >= CURRENT_DATE ORDER BY preco;
 -- SELECT r.*, p.status_pagamento FROM reservas r LEFT JOIN pagamentos p ON p.reserva_id = r.id WHERE r.cliente_id = 1;

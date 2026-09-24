@@ -35,13 +35,13 @@ The finance study track explores foundational concepts through official public d
 - Behavioral biases that influence money decisions.
 - Prompts designed for reviewing materials with NotebookLM or other LLMs.
 
-For the full study notes and curated sources, see [`MINIGUIA.md`](MINIGUIA.md).
+For the full study notes and curated sources, see [`STUDY_GUIDE.md`](STUDY_GUIDE.md).
 
 ---
 
 ## 3. Mock banking database project
 
-Alongside the financial notes, the repository contains a practical relational database project documented in [`PROJETO_BANCO_FICTICIO.md`](PROJETO_BANCO_FICTICIO.md).
+Alongside the financial notes, the repository contains a practical relational database project documented in [`MOCK_BANK_PROJECT.md`](MOCK_BANK_PROJECT.md).
 
 This exercise serves as a sandbox for writing SQL with VS Code and GitHub Copilot, covering:
 
@@ -62,9 +62,9 @@ Note: an expanded version of this project with a Node.js dashboard and interacti
 ```text
 projects/
 ├── README.md                     # Overview of the study workspace
-├── MINIGUIA.md                   # Detailed study guide on finance and curated sources
-├── PROJETO_BANCO_FICTICIO.md     # Schema notes and design for the mock bank database
-└── projeto de data base          # Initial SQL schema draft
+├── STUDY_GUIDE.md                # Detailed study guide on finance and curated sources
+├── MOCK_BANK_PROJECT.md          # Schema notes and design for the mock bank database
+└── travel_database.sql           # Initial SQL schema draft for travel management
 ```
 
 ---
@@ -74,15 +74,16 @@ projects/
 ### For the financial study notes
 
 - Read the overview in [`README.md`](README.md).
-- Follow the summaries, question prompts, and source references in [`MINIGUIA.md`](MINIGUIA.md).
+- Follow the summaries, question prompts, and source references in [`STUDY_GUIDE.md`](STUDY_GUIDE.md).
 - Test study prompts with an AI assistant to check comprehension.
 
 ### For the database project
 
-- Open [`PROJETO_BANCO_FICTICIO.md`](PROJETO_BANCO_FICTICIO.md).
+- Open [`MOCK_BANK_PROJECT.md`](MOCK_BANK_PROJECT.md).
 - Review the SQL tables and test scripts.
 - Run queries against a local PostgreSQL instance.
 - Use VS Code with GitHub Copilot to explore query explanations, refactoring, and edge cases.
+- For additional schema modeling practice, see [`travel_database.sql`](travel_database.sql).
 
 ---
 
